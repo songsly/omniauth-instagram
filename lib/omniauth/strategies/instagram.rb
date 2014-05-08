@@ -28,6 +28,10 @@ module OmniAuth
         }
       end
 
+      extra do
+        { :raw_info => raw_info }
+      end
+
       def raw_info
         @data ||= access_token.params["user"]
         unless @data
@@ -35,8 +39,11 @@ module OmniAuth
           access_token.options[:param_name] = "access_token"
           @data ||= access_token.get('/v1/users/self').parsed['data'] || {}
         end
+
         @data
       end
+
+
     end
   end
 end
